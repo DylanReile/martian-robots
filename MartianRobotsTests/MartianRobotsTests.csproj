@@ -70,7 +70,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MarsTest.cs" />
+    <Compile Include="CommandStationTests.cs" />
+    <Compile Include="RobotsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

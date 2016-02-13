@@ -8,7 +8,7 @@ using MartianRobots;
 
 namespace MartianRobotsTests
 {
-    public class MarsTest
+    class RobotsTest
     {
         [TestCase(Command.right, 1, Orientation.east)]
         [TestCase(Command.right, 2, Orientation.south)]

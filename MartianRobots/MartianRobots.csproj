@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
+    <Compile Include="CommandStation.cs" />
     <Compile Include="Coordinate.cs" />
     <Compile Include="Mars.cs" />
     <Compile Include="Orientation.cs" />
