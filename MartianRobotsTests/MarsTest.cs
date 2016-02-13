@@ -10,22 +10,46 @@ namespace MartianRobotsTests
 {
     public class MarsTest
     {
-        [TestCase(Command.forward, 0, 1, Orientation.north)]
-        [TestCase(Command.right, 0, 0, Orientation.east)]
-        [TestCase(Command.left, 0, 0, Orientation.west)]
-        public void Commands(Command command, int x, int y, Orientation orientation)
+        [TestCase(Command.right, 1, Orientation.east)]
+        [TestCase(Command.right, 2, Orientation.south)]
+        [TestCase(Command.right, 3, Orientation.west)]
+        [TestCase(Command.right, 4, Orientation.north)]
+        [TestCase(Command.left, 1, Orientation.west)]
+        [TestCase(Command.left, 2, Orientation.south)]
+        [TestCase(Command.left, 3, Orientation.east)]
+        [TestCase(Command.left, 4, Orientation.north)]
+        public void Reorientation(Command command, int timesRotate, Orientation orientation)
         {
             //arrange
             var mars = new Mars(5, 3);
             var robot = new Robot(0, 0, Orientation.north, mars);
 
             //act
-            robot.ExecuteCommand(command);
+            for(int i=0; i<timesRotate; i++)
+                robot.ExecuteCommand(command);
+
+            //assert
+            Assert.AreEqual(orientation, robot.Orientation);
+            Assert.AreEqual(0, robot.X);
+            Assert.AreEqual(0, robot.Y);
+        }
+
+        [TestCase(Orientation.north, 0, 1)]
+        [TestCase(Orientation.south, 0, -1)]
+        [TestCase(Orientation.east, 1, 0)]
+        [TestCase(Orientation.west, -1, 0)]
+        public void DirectionalMovement(Orientation orientation, int x, int y)
+        {
+            //arrange
+            var mars = new Mars(5, 3);
+            var robot = new Robot(0, 0, orientation, mars);
+
+            //act
+            robot.ExecuteCommand(Command.forward);
 
             //assert
             Assert.AreEqual(x, robot.X);
             Assert.AreEqual(y, robot.Y);
-            Assert.AreEqual(orientation, robot.Orientation);
         }
 
         [TestCase(Orientation.north, 3, true, TestName ="LostInTheNorth")]
