@@ -27,5 +27,27 @@ namespace MartianRobotsTests
             Assert.AreEqual(y, robot.Y);
             Assert.AreEqual(orientation, robot.Orientation);
         }
+
+        [TestCase(Orientation.north, 3, true, TestName ="LostInTheNorth")]
+        [TestCase(Orientation.north, 2, false, TestName = "EdgeOfTheNorth")]
+        [TestCase(Orientation.east, 5, true, TestName ="LostInTheEast")]
+        [TestCase(Orientation.east, 4, false, TestName = "EdgeOfTheEast")]
+        [TestCase(Orientation.south, 2, true, TestName = "LostInTheSouth")]
+        [TestCase(Orientation.south, 1, false, TestName = "EdgeOfTheSouth")]
+        [TestCase(Orientation.west, 2, true, TestName = "LostInTheWest")]
+        [TestCase(Orientation.west, 1, false, TestName = "EdgeOfTheWest")]
+        public void Boundaries(Orientation orientation, int timesForward, bool shouldBeLost)
+        {
+            //arrange
+            var mars = new Mars(5, 3);
+            var robot = new Robot(1, 1, orientation, mars);
+
+            //act
+            for(int i=0; i<timesForward; i++)
+                robot.ExecuteCommand(Command.forward);
+
+            //assert
+            Assert.AreEqual(shouldBeLost, robot.IsLost);
+        }
     }
 }

@@ -12,12 +12,14 @@ namespace MartianRobots
         public int Y { get; private set; }
         public Orientation Orientation { get; private set;}
         public bool IsLost { get; private set; }
+        private Mars _mars;
 
         public Robot(int x, int y, Orientation orientation, Mars mars)
         {
             X = x;
             Y = y;
             Orientation = orientation;
+            _mars = mars;
         }
 
         public void ExecuteCommand(Command command)
@@ -26,6 +28,7 @@ namespace MartianRobots
             {
                 case Command.forward:
                     MoveForward();
+                    CheckIfLost();
                     break;
                 case Command.right:
                     RotateClockwise();
@@ -72,7 +75,10 @@ namespace MartianRobots
 
         private void CheckIfLost()
         {
-
+            if(X > _mars.XBound || X < 0 || Y > _mars.YBound || Y < 0)
+            {
+                IsLost = true;
+            }
         }
     }
 }
