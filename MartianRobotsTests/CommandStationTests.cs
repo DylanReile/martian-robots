@@ -14,29 +14,12 @@ namespace MartianRobotsTests
         public void TransmitCommandSequenceTest()
         {
             //arrange
-            var mars = new Mars(5, 3);
-            var robots = new List<Robot> { new Robot(3, 2, Orientation.north, mars) };
-            var commandSequence = new List<Command>
-            {
-                //FRRFLLFFRRFLL
-                Command.forward,
-                Command.right,
-                Command.right,
-                Command.forward,
-                Command.left,
-                Command.left,
-                Command.forward,
-                Command.forward,
-                Command.right,
-                Command.right,
-                Command.forward,
-                Command.left,
-                Command.left
-            };
+            var mocks = new Mocks();
+            var robots = new List<Robot> { mocks.GetRobot() };
             var commandStation = new CommandStation(robots);
 
             //act
-            commandStation.TransmitCommandSequence(0, commandSequence);
+            commandStation.TransmitCommandSequence(0, mocks.GetCommandSequence());
 
             //assert
             var robot = commandStation.Robots[0];

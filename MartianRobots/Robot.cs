@@ -45,17 +45,16 @@ namespace MartianRobots
 
         private void CautiouslyMoveFoward()
         {
-            //..sniffing for scents all the way
             var nextPosition = NextPositionIfMovedForward();
-            var isNextPositionOutOfBounds = IsOutOfBounds(nextPosition.X, nextPosition.Y);
 
-            if (isNextPositionOutOfBounds)
+            if (IsOutOfBounds(nextPosition.X, nextPosition.Y))
             {
                 if (!_mars.IsScented(X, Y))
                 {
                     IsLost = true;
                     _mars.AddScentedCoordinate(X, Y);
                 }
+                //ignore command if it is scented
             }
             else
             {

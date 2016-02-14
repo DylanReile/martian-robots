@@ -11,10 +11,5 @@ namespace MartianRobots
         static void Main(string[] args)
         {
         }
-
-        static String MartianRobots(String input)
-        {
-            return "";
-        }
     }
 }
