@@ -18,7 +18,8 @@ namespace MartianRobotsTests
             var input =
 @"5 3
 3 2 N
-FRRFLLFFRRFLL";
+FRRFLLFFRRFLL
+";
             var mocks = new Mocks();
             var expectedRobots = new List<Robot>() { mocks.GetRobot() };
             var expectedCommandSequences = new List<List<Command>> { mocks.GetCommandSequence() };

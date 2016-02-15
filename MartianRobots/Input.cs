@@ -9,21 +9,35 @@ namespace MartianRobots
 {
     public static class Input
     {
+        public static String GetUserInput()
+        {
+            var userInput = new StringBuilder();
+            Console.WriteLine("Input upper-right Mars coordinates, robot positions, and robot instructions. One per line. Press CTRL+Z then enter when finished");
+            string line;
+            do
+            {
+                line = Console.ReadLine();
+                if (!String.IsNullOrWhiteSpace(line))
+                    userInput.AppendLine(line);
+            } while (line != null);
+            return userInput.ToString();
+        }
+
         public static void GetRobotsAndCommandSequences(String input, out List<Robot> robots, out List<List<Command>> commandSequences)
         {
             string[] lines = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-
+            
             var mars = ParseMars(lines.First());
-            lines = lines.Skip(1).ToArray();
 
             robots = new List<Robot>();
             commandSequences = new List<List<Command>>();
-            for (int i = 0; i < lines.Count(); i++)
+            //ignore the first element (mars) and the last (empty string caused by splitting on final newline char)
+            for (int i = 1; i < lines.Count() -1; i++)
             {
                 if (i % 2 == 0)
-                    robots.Add(ParseRobot(lines[i], mars));
-                else
                     commandSequences.Add(ParseCommandSequence(lines[i]));
+                else
+                    robots.Add(ParseRobot(lines[i], mars));
             }
         }
 
