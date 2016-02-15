@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace MartianRobots
 {
-    public class Input
+    public static class Input
     {
-        public void GetMarsRobotsAndCommandSequences(String input, out Mars mars, out List<Robot> robots, out List<List<Command>> commandSequences)
+        public static void GetRobotsAndCommandSequences(String input, out List<Robot> robots, out List<List<Command>> commandSequences)
         {
             string[] lines = input.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
-            mars = ParseMars(lines.First());
+            var mars = ParseMars(lines.First());
             lines = lines.Skip(1).ToArray();
 
             robots = new List<Robot>();
@@ -27,7 +27,7 @@ namespace MartianRobots
             }
         }
 
-        private Mars ParseMars(String mars)
+        private static Mars ParseMars(String mars)
         {
             //5 3
             int xBound = (int)Char.GetNumericValue(mars[0]);
@@ -35,7 +35,7 @@ namespace MartianRobots
             return new Mars(xBound, yBound);
         }
 
-        private Robot ParseRobot(String robot, Mars mars)
+        private static Robot ParseRobot(String robot, Mars mars)
         {
             //1 1 E
             var x = (int)Char.GetNumericValue(robot[0]);
@@ -44,7 +44,7 @@ namespace MartianRobots
             return new Robot(x, y, orientation, mars);
         }
 
-        private List<Command> ParseCommandSequence(String instruction)
+        private static List<Command> ParseCommandSequence(String instruction)
         {
             //FRRFLLFFRRFLL
             var commandSequence = new List<Command>();
@@ -55,7 +55,7 @@ namespace MartianRobots
             return commandSequence;
         }
 
-        private Command GetCommand(Char command)
+        private static Command GetCommand(Char command)
         {
             switch(command)
             {
@@ -70,7 +70,7 @@ namespace MartianRobots
             }
         }
 
-        private Orientation GetOrientation(Char orientation)
+        private static Orientation GetOrientation(Char orientation)
         {
             switch (orientation)
             {

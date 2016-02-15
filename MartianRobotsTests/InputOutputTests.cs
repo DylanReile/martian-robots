@@ -9,7 +9,7 @@ using MartianRobots;
 
 namespace MartianRobotsTests
 {
-    class InputTests
+    class InputOutputTests
     {
         [Test]
         public void GetMarsRobotsAndCommandSequences()
@@ -20,20 +20,30 @@ namespace MartianRobotsTests
 3 2 N
 FRRFLLFFRRFLL";
             var mocks = new Mocks();
-            var expectedMars = mocks.GetMars();
             var expectedRobots = new List<Robot>() { mocks.GetRobot() };
             var expectedCommandSequences = new List<List<Command>> { mocks.GetCommandSequence() };
 
             //act
-            Mars actualMars;
             List<Robot> actualRobots;
             List<List<Command>> actualCommandSequences;
-            new Input().GetMarsRobotsAndCommandSequences(input, out actualMars, out actualRobots, out actualCommandSequences);
+            Input.GetRobotsAndCommandSequences(input, out actualRobots, out actualCommandSequences);
 
             //assert
-            Assert.That(actualMars, IsDeeplyEqual.To(expectedMars));
             Assert.That(actualRobots, IsDeeplyEqual.To(expectedRobots));
             Assert.That(actualCommandSequences, IsDeeplyEqual.To(expectedCommandSequences));
+        }
+
+        [Test]
+        public void GetRobotReport()
+        {
+            //arrange
+            var robots = new List<Robot> { new Mocks().GetRobot() };
+
+            //act
+            var robotReport = Output.GetRobotReport(robots);
+
+            //assert
+            Assert.AreEqual("3 2 N" + Environment.NewLine, robotReport);
         }
     }
 }

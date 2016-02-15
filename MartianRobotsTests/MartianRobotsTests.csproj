@@ -79,7 +79,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CommandStationTests.cs" />
-    <Compile Include="InputTests.cs" />
+    <Compile Include="InputOutputTests.cs" />
     <Compile Include="Mocks.cs" />
     <Compile Include="RobotsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
