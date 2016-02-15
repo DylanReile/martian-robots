@@ -16,13 +16,13 @@ namespace MartianRobotsTests
         {
             //arrange
             var input =
-@"5 3
-3 2 N
+@"50 30
+13 12 N
 FRRFLLFFRRFLL
 ";
-            var mocks = new Mocks();
-            var expectedRobots = new List<Robot>() { mocks.GetRobot() };
-            var expectedCommandSequences = new List<List<Command>> { mocks.GetCommandSequence() };
+            var mars = new Mars(50, 30);
+            var expectedRobots = new List<Robot>() { new Robot(13, 12, Orientation.north, mars) };
+            var expectedCommandSequences = new List<List<Command>> { new Mocks().GetCommandSequence() };
 
             //act
             List<Robot> actualRobots;

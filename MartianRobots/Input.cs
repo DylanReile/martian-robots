@@ -44,17 +44,21 @@ namespace MartianRobots
         private static Mars ParseMars(String mars)
         {
             //5 3
-            int xBound = (int)Char.GetNumericValue(mars[0]);
-            int yBound = (int)Char.GetNumericValue(mars[2]);
+            //50 30
+            string[] inputs = mars.Split(' ');
+            int xBound = int.Parse(inputs[0]);
+            int yBound = int.Parse(inputs[1]);
             return new Mars(xBound, yBound);
         }
 
         private static Robot ParseRobot(String robot, Mars mars)
         {
             //1 1 E
-            var x = (int)Char.GetNumericValue(robot[0]);
-            var y = (int)Char.GetNumericValue(robot[2]);
-            var orientation = GetOrientation(robot[4]);
+            //33 44 E
+            string[] inputs = robot.Split(' ');
+            var x = int.Parse(inputs[0]);
+            var y = int.Parse(inputs[1]);
+            var orientation = GetOrientation(inputs[2]);
             return new Robot(x, y, orientation, mars);
         }
 
@@ -84,20 +88,20 @@ namespace MartianRobots
             }
         }
 
-        private static Orientation GetOrientation(Char orientation)
+        private static Orientation GetOrientation(String orientation)
         {
             switch (orientation)
             {
-                case 'N':
+                case "N":
                     return Orientation.north;
-                case 'E':
+                case "E":
                     return Orientation.east;
-                case 'S':
+                case "S":
                     return Orientation.south;
-                case 'W':
+                case "W":
                     return Orientation.west;
                 default:
-                    throw new ArgumentException($"Char {orientation} corresonds to no known orientation");
+                    throw new ArgumentException($"Char {orientation} corresponds to no known orientation");
             }
         }
     }
