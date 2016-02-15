@@ -44,7 +44,7 @@ RFRFRFRF
 
 FRRFLLFFRRFLL 
 
-03 W 
+0 3 W 
 
 LLFFFLFLFL 
 
@@ -55,3 +55,29 @@ LLFFFLFLFL
 3 3 N LOST 
 
 2 3 S
+
+## Solution
+### Assumptions
+* Robots are infinitely stackable and therefore no collison handling is necessary when a robot moves to a coordinate already occupied by another.
+* Users are perfect so input validation is unnecessary
+* The solution will be run on a Windows operating system
+
+### Estimate
+One to two days including code review and testing
+
+### Design
+The biggest architectural decision was to decouple the three distinct problems: input, robot functions, and output. This allows for each module to be unit tested and changed independently. If in future the command characters change or coordinates can be 3 digits long the change will be isolated to the input module. Similiarly if robots need to collide when occupying the same coordinate that change will be isolated to the Robots module. Similiarly if the output form needs to change that will be isolated to the output module.
+
+Another key decision was to have each robot hold a reference to the shared Mars object. I knew that state had to be shared somehow so that robots could leave/detect scented spaces. I'm not entirely comfortable with this method and would like suggestions for alternatives.
+
+The main classes:
+###### Mars
+Just a holder for the xBound, yBound, and scented coordinates.
+###### Robot
+The main functionality. Robots hold their X, Y, Orientation, and IsLost state. They can execute commands (extendable) and leave scents on Mars coordinates.
+###### CommandStation
+Holds a list of Robots and a method for transmitting command sequences to them.
+###### Input
+Gathers and parses user input into Mars, Robots, and a list of command sequences.
+###### Output
+Loops through the CommandStation's robots and reports on their coordinates, orientation, and IsLost state.
